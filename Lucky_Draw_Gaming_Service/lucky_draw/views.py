@@ -90,9 +90,41 @@ class Grofer_Event(viewsets.ViewSet):
                 ).first()
                 response["success"] = True
                 response["event_name"] = result.event_name
+                response["event_prize"] = result.event_prize
             except:
                 response["success"] = False
                 response["message"] = "No upcoming event"
             return Response(data = response, content_type="application/json")
+
+        def last_week_winners(self,request):
+            #import ipdb; ipdb.set_trace()
+            response = {}
+            starttime = datetime.today() - timedelta(days = 7)
+            endtime = datetime.today() - timedelta(days = 1)
+            last_week_events = Event.objects.filter(end_time__range = [starttime, endtime])
+            if not last_week_events:
+                response["message"] = "No events happened in the last week"
+                return Response(data = response, content_type="application/json")
+
+            for daily_event in last_week_events:
+                response[str(daily_event.event_name)] = daily_event.event_winner
+            return Response(data = response, content_type="application/json")
+
+        
+        # Function to update winners of contest everyday at 12 am
+
+        def update_winner(self, events):
+            for single_event in events:
+                #Find possible candidates that can win and choose a winner randomly
+                participants = Ticket.objects.get(event_name = single_event.event_name)
+                winner_ticket = random.choice(participants)
+                winner_user = winner_ticket.user
+                #Update this user in event record
+                single_event.event_winner = winner_user.name
+                single_event.save()
+
+
+
+
 
             
