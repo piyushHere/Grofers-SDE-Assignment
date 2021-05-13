@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from rest_framework import viewsets
+from rest_framework import response
 from rest_framework.response import Response
 import uuid
 from .models import *
@@ -78,3 +79,20 @@ class Grofer_Event(viewsets.ViewSet):
             check_ticket.save()
             response["success"] = True
             return Response(data = response, content_type="application/json")
+
+        def upcoming_event(self, request):
+            response = {}
+            try:
+                result = Event.objects.filter(
+                start_time__gte = datetime.today()
+                ).order_by(
+                'start_time'
+                ).first()
+                response["success"] = True
+                response["event_name"] = result.event_name
+            except:
+                response["success"] = False
+                response["message"] = "No upcoming event"
+            return Response(data = response, content_type="application/json")
+
+            
