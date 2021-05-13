@@ -12,6 +12,8 @@ from rest_framework.response import Response
 class Grofer_Event(viewsets.ViewSet):
 
         def generateticket(self,request):
+            #import ipdb; ipdb.set_trace()
+            response = {}
             username = request.data["username"]
             try:
                 check_user = User.objects.get(username = username)
