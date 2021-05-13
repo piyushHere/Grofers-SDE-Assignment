@@ -5,7 +5,6 @@ from django.db.models.fields import EmailField
 
 class User(models.Model):
     username = models.CharField(max_length=30, primary_key=True)
-    email = models.CharField(max_length=200, unique = True, blank = True)
     name = models.CharField(max_length=200)
 
     def __str__(self):
