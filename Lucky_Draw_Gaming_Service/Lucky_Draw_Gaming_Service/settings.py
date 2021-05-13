@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'lucky_draw.apps.LuckyDrawConfig',
     'django.contrib.admin',
     'django.contrib.auth',

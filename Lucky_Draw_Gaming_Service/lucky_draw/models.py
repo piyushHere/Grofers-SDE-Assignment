@@ -4,7 +4,8 @@ from django.db.models.fields import EmailField
 # Create your models here.
 
 class User(models.Model):
-    email = models.CharField(max_length=200, unique = True, blank=True)
+    username = models.CharField(max_length=30, primary_key=True)
+    email = models.CharField(max_length=200, unique = True, blank = True)
     name = models.CharField(max_length=200)
 
     def __str__(self):
@@ -13,7 +14,7 @@ class User(models.Model):
 class Ticket(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     number = models.CharField(max_length=200)
-    contest = models.CharField(max_length=200)
+    event_name = models.CharField(max_length=200, blank = True)
 
     def __str__(self):
         return self.number
