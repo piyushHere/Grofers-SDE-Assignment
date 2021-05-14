@@ -7,6 +7,8 @@ from .models import *
 from datetime import *
 import random 
 from django.utils import timezone
+from celery.schedules import crontab
+from celery.task import periodic_task
 
 
 class Grofer_Event(viewsets.ViewSet):
@@ -112,7 +114,6 @@ class Grofer_Event(viewsets.ViewSet):
 
         
         # Function to update winners of contest everyday at 12 am
-
         def update_winner(self, events):
             for single_event in events:
                 #Find possible candidates that can win and choose a winner randomly

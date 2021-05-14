@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'rest_framework',
     'lucky_draw.apps.LuckyDrawConfig',
     'django.contrib.admin',
@@ -82,6 +83,9 @@ DATABASES = {
     }
 }
 
+CRONJOBS = [
+    ('0 0 * * *', 'lucky_draw.cron.my_cron_job')
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
