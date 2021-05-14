@@ -8,7 +8,6 @@ from datetime import *
 import random 
 from django.utils import timezone
 from celery.schedules import crontab
-from celery.task import periodic_task
 
 
 class Grofer_Event(viewsets.ViewSet):
@@ -47,6 +46,10 @@ class Grofer_Event(viewsets.ViewSet):
             #event_name should be a valid event
             try:
                 check_event = Event.objects.get(event_name=event_name)
+                if(check_event.end_time<timezone.now()):
+                    response["success"] = False
+                    response["message"] = "The requested event is over now"
+                    return Response(data = response, content_type="application/json")
             except:
                 response["success"] = False
                 response["message"] = "The requested event does not exist"
