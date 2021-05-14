@@ -1,7 +1,3 @@
-# Django Project Template
-
-The clean, fast and right way to start a new Django `2.2.5` powered website.
-
 ## Getting Started
 
 Setup project environment with [virtualenv](https://virtualenv.pypa.io) and [pip](https://pip.pypa.io).
