@@ -41,7 +41,7 @@ Endpoint |HTTP Method | CRUD Method | Result
 
 To verify the APIs above, we can send requests to the port number depicted by the URL http://127.0.0.1:8000 locally. For this purpose I have used a tool called POSTMAN.
 
-Generate ticket-
+*Generate ticket-
 http POST request -  http://127.0.0.1:8000/lucky_draw/generateticket"
 For the above request, we have sent username in the body tag of request as below:
 {
