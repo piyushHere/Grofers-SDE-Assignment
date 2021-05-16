@@ -13,9 +13,9 @@ from celery.schedules import crontab
 class Grofer_Event(viewsets.ViewSet):
 
         def generateticket(self,request):
-           # import ipdb; ipdb.set_trace()
             response = {}
             username = request.data["username"]
+            # If the user is a registered user, only then they can generate a new ticket
             try:
                 check_user = User.objects.get(username = username)
                 ticket_number = uuid.uuid1()
@@ -23,19 +23,20 @@ class Grofer_Event(viewsets.ViewSet):
                 new_ticket.save()
                 response["success"] = True
                 response["ticket"] = ticket_number
+            # If the user does not exist in our database then we will send the respose accordingly
             except:
                 response["success"] = False
                 response["message"] = "The entered username does not exist"
             return Response(data = response, content_type="application/json")
 
         def participate(self, request):
-            #import ipdb; ipdb.set_trace()
             response = {}
+            # We will first take the details required to participate in an event
             username = request.data["username"]
             ticket_number = request.data["ticket_number"]
             event_name = request.data["event_name"]
 
-            #user should be a valid user
+            # User should be a registered user
             try:
                 check_user = User.objects.get(username = username)
             except:
@@ -88,6 +89,7 @@ class Grofer_Event(viewsets.ViewSet):
         def upcoming_event(self, request):
             response = {}
             try:
+                # Query the next event that occurs after current time
                 result = Event.objects.filter(
                 start_time__gte = datetime.today()
                 ).order_by(
@@ -102,8 +104,8 @@ class Grofer_Event(viewsets.ViewSet):
             return Response(data = response, content_type="application/json")
 
         def last_week_winners(self,request):
-            #import ipdb; ipdb.set_trace()
             response = {}
+            # Query the event objects that happened in the past week
             starttime = datetime.today() - timedelta(days = 7)
             endtime = datetime.today() - timedelta(days = 1)
             last_week_events = Event.objects.filter(end_time__range = [starttime, endtime])

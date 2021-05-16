@@ -21,8 +21,8 @@ $ python manage.py runserver
 We have used the default database in Django which is 'sqlite3'. We have created 3 tables in our database:
 1) First we have a user table which contains the user details i.e a unique username which we have set as primary key so nullable values are not allowed.
 2) Ticket table which contains all the details of generated tickets, the user which generated this ticket, ticket number and event name in which this ticket is used (contains blank if this ticket is yet to be used).
-3) An event table which stores the details of all events i.e event names, their prizes, their winner and the time at which they starts and ends.
-===================================
+3) An event table which stores the details of all events i.e event names, their prizes, their winner and the time at which they start and end.
+
 # Cron job 
 We have scheduled a periodic task which will update the event winner daily at 12 am which is the time at which daily contests end.
 It will call the function called update winner at scheduled time. 
@@ -41,7 +41,7 @@ Endpoint |HTTP Method | CRUD Method | Result
 
 To verify the APIs above, we can send requests to the port number depicted by the URL http://127.0.0.1:8000 locally. For this purpose I have used a tool called POSTMAN.
 
-*Generate ticket-
+Generate ticket-
 http POST request -  http://127.0.0.1:8000/lucky_draw/generateticket"
 For the above request, we have sent username in the body tag of request as below:
 {
@@ -84,7 +84,3 @@ The reponse will be as below:
 }
 Note: It shows only one winner in the past week because only 1 event happened this week. 
 
-
-## Contributing
-
-I love contributions, so please feel free to fix bugs, improve things, provide documentation. Just send a pull request.
